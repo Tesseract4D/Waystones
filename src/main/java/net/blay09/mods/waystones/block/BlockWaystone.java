@@ -10,7 +10,9 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -20,6 +22,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -67,7 +70,7 @@ public class BlockWaystone extends BlockContainer {
 		if(Waystones.getConfig().creativeModeOnly && !player.capabilities.isCreativeMode) {
 			return -1f;
 		}
-		if(Waystones.getConfig().privateWaystones) {
+		if (Waystones.getConfig().privateWaystones) {
 			String waystoneOwner = tileWaystone.getWaystoneOwner();
 			if (!(waystoneOwner.contentEquals("") || waystoneOwner.contentEquals(player.getUniqueID().toString())))
 				return -1f;
@@ -164,6 +167,14 @@ public class BlockWaystone extends BlockContainer {
 				world.spawnParticle("enchantmenttable", x + 0.5 + (random.nextDouble() - 0.5) * 1.5, y + 0.5, z + 0.5 + (random.nextDouble() - 0.5) * 1.5, 0, 0, 0);
 			}
 		}
+	}
+
+	@Override
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity) {
+		if (Waystones.getConfig().privateWaystones && entity instanceof IBossDisplayData)
+			return false;
+
+		return true;
 	}
 
 	public TileWaystone getTileWaystone(World world, int x, int y, int z) {
