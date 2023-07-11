@@ -16,6 +16,8 @@ import net.blay09.mods.waystones.network.NetworkHandler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -76,6 +78,21 @@ public class Waystones {
 	public void postInit(FMLPostInitializationEvent event) {
 		if(config.allowReturnScrolls) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReturnScroll, 3), "GEG", "PPP", 'G', "nuggetGold", 'E', Items.ender_pearl, 'P', Items.paper));
+			if(config.lootReturnScrolls){
+				// Item, min, max, weight
+				ChestGenHooks.getInfo(ChestGenHooks.VILLAGE_BLACKSMITH)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 1, 5));
+				ChestGenHooks.getInfo(ChestGenHooks.MINESHAFT_CORRIDOR)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 1, 3));
+				ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 2, 3));
+				ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 1, 3));
+				ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 1, 2));
+				ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_LIBRARY)
+						.addItem(new WeightedRandomChestContent(new ItemStack(itemReturnScroll), 1, 1, 2));
+			}
 		}
 
 		if(config.allowWarpStone) {
@@ -85,8 +102,8 @@ public class Waystones {
 		if(!config.creativeModeOnly) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockWaystone), " S ", "SWS", "OOO", 'S', Blocks.stonebrick, 'W', itemWarpStone, 'O', Blocks.obsidian));
 		}
-	}
 
+	}
 	public static WaystoneConfig getConfig() {
 		return config;
 	}

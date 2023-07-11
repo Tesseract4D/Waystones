@@ -25,10 +25,10 @@ public class GuiConfirmReturn extends GuiYesNo implements GuiYesNoCallback {
 				Minecraft.getMinecraft().displayGuiScreen(null);
 			}
 		}, I18n.format("gui.waystones:confirmReturn"), "", 0);
-		this.waystoneName = getWaystoneName(tile);
+		this.waystoneName = getWaystoneName();
 	}
 
-	private static String getWaystoneName(TileEntity tile) {
+	private static String getWaystoneName() {
 		WaystoneEntry lastEntry = PlayerWaystoneData.getLastWaystone(FMLClientHandler.instance().getClientPlayerEntity());
 		if(lastEntry != null) {
 			return EnumChatFormatting.GRAY + I18n.format("gui.waystones:confirmReturn.boundTo", lastEntry.getName());

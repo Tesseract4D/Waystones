@@ -19,6 +19,8 @@ public class WaystoneConfig {
 	public boolean teleportButtonReturnOnly;
 
 	public boolean allowReturnScrolls;
+	public boolean lootReturnScrolls;
+
 	public boolean allowWarpStone;
 
 	public int warpStoneCooldown;
@@ -39,6 +41,7 @@ public class WaystoneConfig {
 		teleportButtonReturnOnly = config.getBoolean("Teleport Button Return Only", "general", false, "If true, the teleport button will only let you return to the last activated waystone, instead of allowing to choose.");
 
 		allowReturnScrolls = config.getBoolean("Allow Return Scrolls", "general", true, "If true, return scrolls will be craftable.");
+		lootReturnScrolls = config.getBoolean("Spawn Return Scrolls as loot", "general", true, "If true, return scrolls will be found in dungeons as loot.");
 		allowWarpStone = config.getBoolean("Allow Warp Stone", "general", true, "If true, the warp stone will be craftable.");
 
 		teleportButtonX = config.getInt("Teleport Button GUI X", "client", 60, -100, 250, "The x position of the warp button in the inventory.");
