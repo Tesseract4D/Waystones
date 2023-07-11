@@ -1,10 +1,10 @@
 [
 {
-  "modid": "waystones",
-  "name": "Waystones",
+  "modid": "${modId}",
+  "name": "${modName}",
   "description": "Teleport back to activated waystones. For Survival, Adventure or Servers.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["BlayTheNinth"],

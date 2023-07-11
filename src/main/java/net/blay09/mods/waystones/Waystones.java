@@ -19,14 +19,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-@Mod(modid = Waystones.MOD_ID, name = "Waystones")
+@Mod(modid = Waystones.MOD_ID, name = "Waystones", version = Waystones.VERSION)
 @SuppressWarnings("unused")
 public class Waystones {
 
-	public static final String MOD_ID = "waystones";
 
-	@Mod.Instance(MOD_ID)
 	public static Waystones instance;
+
+	/** This mod's id. */
+	public static final String MOD_ID = "waystones";
+	public static final String MOD_Name = "Waystones";
+
+
+	/** This mod's version. */
+	public static final String VERSION = "GRADLETOKEN_VERSION";
 
 	@SidedProxy(serverSide = "net.blay09.mods.waystones.CommonProxy", clientSide = "net.blay09.mods.waystones.client.ClientProxy")
 	public static CommonProxy proxy;
