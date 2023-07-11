@@ -24,8 +24,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class Waystones {
 
 
-	public static Waystones instance;
-
 	/** This mod's id. */
 	public static final String MOD_ID = "waystones";
 	public static final String MOD_Name = "Waystones";
@@ -43,7 +41,7 @@ public class Waystones {
 
 	public static Configuration configuration;
 
-	private WaystoneConfig config;
+	private static WaystoneConfig config;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -76,11 +74,11 @@ public class Waystones {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		if(instance.config.allowReturnScrolls) {
+		if(config.allowReturnScrolls) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemReturnScroll, 3), "GEG", "PPP", 'G', "nuggetGold", 'E', Items.ender_pearl, 'P', Items.paper));
 		}
 
-		if(instance.config.allowWarpStone) {
+		if(config.allowWarpStone) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemWarpStone), "DED", "EGE", "DED", 'D', "dyePurple", 'E', Items.ender_pearl, 'G', "gemEmerald"));
 		}
 
@@ -90,11 +88,11 @@ public class Waystones {
 	}
 
 	public static WaystoneConfig getConfig() {
-		return instance.config;
+		return config;
 	}
 
-	public void setConfig(WaystoneConfig config) {
-		this.config = config;
+	public static void setConfig(WaystoneConfig config) {
+		Waystones.config = config;
 	}
 
 }

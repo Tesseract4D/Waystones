@@ -39,6 +39,8 @@ public class HandlerWaystoneName implements IMessageHandler<MessageWaystoneName,
 					}
 					WaystoneManager.removeServerWaystone(new WaystoneEntry((TileWaystone) tileEntity));
 					((TileWaystone) tileEntity).setWaystoneName(message.getName());
+					if (Waystones.getConfig().privateWaystones)
+						((TileWaystone) tileEntity).setWaystoneOwner(entityPlayer.getUniqueID().toString());
 					if(message.isGlobal() /*&& ctx.getServerHandler().playerEntity.capabilities.isCreativeMode*/) {
 						WaystoneManager.addServerWaystone(new WaystoneEntry((TileWaystone) tileEntity));
 						for(Object obj : MinecraftServer.getServer().getConfigurationManager().playerEntityList) {

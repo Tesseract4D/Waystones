@@ -12,7 +12,7 @@ public class HandlerConfig implements IMessageHandler<MessageConfig, IMessage> {
 		Waystones.proxy.addScheduledTask(new Runnable() {
 			@Override
 			public void run() {
-				Waystones.instance.setConfig(message.getConfig());
+				Waystones.setConfig(message.getConfig());
 			}
 		});
 		return null;

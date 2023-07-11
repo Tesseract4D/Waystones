@@ -10,17 +10,21 @@ import net.minecraft.util.AxisAlignedBB;
 public class TileWaystone extends TileEntity {
 
 	private String waystoneName = "";
+	private String waystoneOwner = "";
+
 
 	@Override
 	public void writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		tagCompound.setString("WaystoneName", waystoneName);
+		tagCompound.setString("WaystoneOwner", waystoneOwner);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		waystoneName = tagCompound.getString("WaystoneName");
+		waystoneOwner = tagCompound.getString("WaystoneOwner");
 	}
 
 	@Override
@@ -36,14 +40,20 @@ public class TileWaystone extends TileEntity {
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tagCompound);
 	}
 
-	public String getWaystoneName() {
-		return waystoneName;
-	}
+	public String getWaystoneName() { return waystoneName;}
 
 	public void setWaystoneName(String waystoneName) {
 		this.waystoneName = waystoneName;
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		markDirty();
+	}
+
+	public String getWaystoneOwner() {
+		return waystoneOwner;
+	}
+
+	public void setWaystoneOwner(String waystoneOwner) {
+		this.waystoneOwner = waystoneOwner;
 	}
 
 	@Override

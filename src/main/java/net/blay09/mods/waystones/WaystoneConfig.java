@@ -24,6 +24,8 @@ public class WaystoneConfig {
 	public int warpStoneCooldown;
 
 	public boolean interDimension;
+	public boolean privateWaystones;
+
 
 	public boolean creativeModeOnly;
 	public boolean setSpawnPoint;
@@ -48,6 +50,7 @@ public class WaystoneConfig {
 
 		setSpawnPoint = config.getBoolean("Set Spawnpoint on Activation", "general", false, "If true, the player's spawnpoint will be set to the last activated waystone.");
 		interDimension = config.getBoolean("Interdimensional Teleport", "general", true, "If true, all waystones work inter-dimensionally.");
+		privateWaystones = config.getBoolean("Private Waystones", "general", false, "If true, only owners can break their own waystones.");
 
 		creativeModeOnly = config.getBoolean("Creative Mode Only", "general", false, "If true, waystones can only be placed in creative mode.");
 
@@ -99,6 +102,7 @@ public class WaystoneConfig {
 		config.globalInterDimension = buf.readBoolean();
 		config.creativeModeOnly = buf.readBoolean();
 		config.setSpawnPoint = buf.readBoolean();
+		config.privateWaystones = buf.readBoolean();
 		return config;
 	}
 
@@ -111,5 +115,6 @@ public class WaystoneConfig {
 		buf.writeBoolean(globalInterDimension);
 		buf.writeBoolean(creativeModeOnly);
 		buf.writeBoolean(setSpawnPoint);
+		buf.writeBoolean(privateWaystones);
 	}
 }

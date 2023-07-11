@@ -23,6 +23,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class BlockWaystone extends BlockContainer {
@@ -55,7 +56,6 @@ public class BlockWaystone extends BlockContainer {
 	public int getRenderType() {
 		return WaystoneBlockRenderer.RENDER_ID;
 	}
-
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 		return metadata != ForgeDirection.UNKNOWN.ordinal() ? new TileWaystone() : null;
@@ -63,8 +63,14 @@ public class BlockWaystone extends BlockContainer {
 
 	@Override
 	public float getPlayerRelativeBlockHardness(EntityPlayer player, World world, int x, int y, int z) {
+		TileWaystone tileWaystone = getTileWaystone(world, x, y, z);
 		if(Waystones.getConfig().creativeModeOnly && !player.capabilities.isCreativeMode) {
 			return -1f;
+		}
+		if(Waystones.getConfig().privateWaystones) {
+			String waystoneOwner = tileWaystone.getWaystoneOwner();
+			if (!(waystoneOwner.contentEquals("") || waystoneOwner.contentEquals(player.getUniqueID().toString())))
+				return -1f;
 		}
 		return super.getPlayerRelativeBlockHardness(player, world, x, y, z);
 	}
@@ -82,13 +88,18 @@ public class BlockWaystone extends BlockContainer {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack) {
 		int orientation = BlockPistonBase.determineOrientation(world, x, y, z, entityLiving);
-		world.setBlockMetadataWithNotify(x, y, z, orientation, 1|2);
-		world.setBlock(x, y + 1, z, this, ForgeDirection.UNKNOWN.ordinal(), 1|2);
-		if(world.isRemote && entityLiving instanceof EntityPlayer && (!Waystones.getConfig().creativeModeOnly || ((EntityPlayer) entityLiving).capabilities.isCreativeMode)) {
-			Waystones.proxy.openWaystoneNameEdit((TileWaystone) world.getTileEntity(x, y, z));
+
+		world.setBlockMetadataWithNotify(x, y, z, orientation, 1 | 2);
+		world.setBlock(x, y + 1, z, this, ForgeDirection.UNKNOWN.ordinal(), 1 | 2);
+		if (world.isRemote) {
+			if (entityLiving instanceof EntityPlayer) {
+				if ((!Waystones.getConfig().creativeModeOnly || ((EntityPlayer) entityLiving).capabilities.isCreativeMode)) {
+					Waystones.proxy.openWaystoneNameEdit((TileWaystone) world.getTileEntity(x, y, z));
+				}
+			}
 		}
 	}
-
+	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int metadata) {
 		TileWaystone tileWaystone = getTileWaystone(world, x, y, z);
