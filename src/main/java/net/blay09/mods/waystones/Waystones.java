@@ -27,14 +27,14 @@ public class Waystones {
 
 
 	/** This mod's id. */
-	public static final String MOD_ID = "waystones";
-	public static final String MOD_Name = "Waystones";
+	public static final String MOD_ID = Tags.MODID;
+	public static final String MOD_Name = Tags.MODNAME;
 
 
 	/** This mod's version. */
-	public static final String VERSION = "GRADLETOKEN_VERSION";
+	public static final String VERSION = Tags.VERSION;
 
-	@SidedProxy(serverSide = "net.blay09.mods.waystones.CommonProxy", clientSide = "net.blay09.mods.waystones.client.ClientProxy")
+	@SidedProxy(serverSide = Tags.GROUPNAME + ".CommonProxy", clientSide = Tags.GROUPNAME + ".client.ClientProxy")
 	public static CommonProxy proxy;
 
 	public static BlockWaystone blockWaystone;
